@@ -30,3 +30,9 @@ class Paddle:
 
     def down(self):
         self.move("down")
+
+    def if_collision_with_ball(self, ball):
+        for link in self.links:
+            if link.distance(ball) < 10:
+                return True
+        return False

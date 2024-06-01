@@ -1,5 +1,7 @@
 from turtle import Screen, Turtle
 from paddle import Paddle
+from ball import Ball
+import time
 
 PADDLE_DISTANCE_FROM_EDGE = 40
 
@@ -33,13 +35,18 @@ def draw_screen(current_turtle, current_screen):
 
 draw_screen(screen_turtle, screen)
 
+# create the pongs
 left_paddle = Paddle(-screen.window_width()//2 + PADDLE_DISTANCE_FROM_EDGE)
 right_paddle = Paddle(screen.window_width()//2 - PADDLE_DISTANCE_FROM_EDGE)
+
+# create the ball object and move it
+ball = Ball()
 
 screen.update()
 
 screen.listen()
 
+# move the pongs using keys
 screen.onkey(fun=left_paddle.up, key="w")
 screen.onkey(fun=left_paddle.down, key="s")
 screen.onkey(fun=right_paddle.up, key="Up")
@@ -49,11 +56,19 @@ game_is_on = True
 
 while game_is_on:
     screen.update()
-# create the pongs
-# move the pongs using keys
-# create the ball object and move it
-# track the collision of ball with pong
-# create a score tracker
+    time.sleep(0.05)
+    ball.move()
 
+    # handle ball's collision with top and bottom walls
+    if ball.ycor() > screen.window_height()//2 - 10 or ball.ycor() < -screen.window_height()//2 + 10:
+        ball.collision_with_wall()
+
+    # track the collision of ball with pong
+    if left_paddle.if_collision_with_ball(ball) or right_paddle.if_collision_with_ball(ball):
+        ball.collision_with_paddle()
+
+
+# create a score tracker
+# end the game if ball crosses left or right boundary
 
 screen.exitonclick()
