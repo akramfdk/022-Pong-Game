@@ -61,7 +61,7 @@ game_is_on = True
 
 while game_is_on:
     screen.update()
-    time.sleep(0.05)
+    time.sleep(0.03)
     ball.move()
 
     # handle ball's collision with top and bottom walls
@@ -72,6 +72,7 @@ while game_is_on:
     if left_paddle.if_collision_with_ball(ball) or right_paddle.if_collision_with_ball(ball):
         ball.collision_with_paddle()
 
+    # end the game if ball crosses left or right boundary
     if ball.xcor() + 10 > screen.window_width()//2:
         scoreboard.increment_left_score()
         ball.set_ball_position()
@@ -87,6 +88,6 @@ while game_is_on:
         game_is_on = False
 
 # create a score tracker
-# end the game if ball crosses left or right boundary
+
 
 screen.exitonclick()

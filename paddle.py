@@ -51,6 +51,6 @@ class Paddle:
             distance_from_wall = abs(-turtle.getscreen().window_width() + ball.xcor())
 
         for link in self.links:
-            if link.distance(ball) < 25:
+            if link.distance(ball) < 10 and distance_from_wall > 50:
                 return True
         return False
