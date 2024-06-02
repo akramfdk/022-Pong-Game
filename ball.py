@@ -1,6 +1,6 @@
 from turtle import Turtle
 
-INITIAL_BALL_DIRECTION = 45
+DEFAULT_DIRECTION = 45
 
 
 class Ball(Turtle):
@@ -11,9 +11,12 @@ class Ball(Turtle):
         self.shape("circle")
         self.color("yellow")
 
-        # set initial position and direction of ball
-        self.setx(-self.getscreen().window_width() // 2 + 60)
-        self.seth(INITIAL_BALL_DIRECTION)
+        self.set_ball_position()
+
+    def set_ball_position(self):
+        # set ball position
+        self.goto(-self.getscreen().window_width() // 2 + 60, 0)
+        self.seth(DEFAULT_DIRECTION)
 
     def move(self):
         self.forward(10)
